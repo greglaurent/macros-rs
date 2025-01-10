@@ -1,14 +1,25 @@
+use std::fmt::Display;
+
 pub use derive::Reflect;
 
+#[derive(Debug)]
 pub struct Field {
-    name: &'static str,
-    f_mut: &'static str,
-    f_visibility: &'static str,
-    f_type: &'static str,
+    pub name: &'static str,
+    pub f_mut: &'static str,
+    pub f_visibility: &'static str,
+    pub f_type: &'static str,
 }
+
+impl Display for Field {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{self:?}")
+    }
+}
+
 pub trait Reflect {
     fn name(&self) -> &'static str;
     fn field_names(&self) -> Vec<&'static str>;
+    //fn field_info(&self) -> Vec<Field>;
 }
 
 #[test]

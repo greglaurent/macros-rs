@@ -20,12 +20,11 @@ pub fn impl_reflect_macro(ast: DeriveInput) -> TokenStream {
             .fields
             .into_iter()
             .filter_map(|f| {
-                let m = (
+                Some((
                     f.ident.unwrap().to_string(),
                     f.ty.into_token_stream().to_string(),
                     f.vis.into_token_stream().to_string(),
-                );
-                return Some(m);
+                ))
             })
             .collect(),
         Data::Enum(_) => panic!("Reflect macro only supports Structs."),
@@ -41,7 +40,7 @@ pub fn impl_reflect_macro(ast: DeriveInput) -> TokenStream {
             }
 
             fn field_names(&self) -> Vec<&'static str> {
-                vec![#(#field_idents_str.0.to_owned()), *]
+                vec![#(#field_idents_str), *]
             }
         }
     }

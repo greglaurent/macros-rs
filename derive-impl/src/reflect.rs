@@ -39,33 +39,28 @@ fn reflect_fields() {
         field_1: true,
         field_2: 1,
     };
-    assert!(some_struct.field_names().get(0) == Some(&"field_1"));
+    assert!(some_struct.field_names().len() == 2);
+    assert!(some_struct.field_names().first() == Some(&"field_1"));
     assert!(some_struct.field_names().get(1) == Some(&"field_2"));
     assert_ne!(
-        some_struct.field_names().get(0),
+        some_struct.field_names().first(),
         some_struct.field_names().get(1)
     );
 
     #[derive(Reflect)]
     #[allow(unused)]
     struct AnotherStruct {
-        field_a: bool,
-        field_b: u8,
+        field_a: String,
     }
 
     let another_struct = AnotherStruct {
-        field_a: false,
-        field_b: 0,
+        field_a: "a".to_string(),
     };
-    assert!(another_struct.field_names().get(0) == Some(&"field_a"));
-    assert!(another_struct.field_names().get(1) == Some(&"field_b"));
+    assert!(some_struct.field_names().len() == 1);
+    assert!(another_struct.field_names().first() == Some(&"field_a"));
 
     assert_ne!(
-        another_struct.field_names().get(0),
-        some_struct.field_names().get(0)
-    );
-    assert_ne!(
-        another_struct.field_names().get(1),
-        some_struct.field_names().get(1)
+        another_struct.field_names().first(),
+        some_struct.field_names().first()
     );
 }

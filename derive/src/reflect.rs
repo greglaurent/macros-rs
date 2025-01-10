@@ -1,8 +1,7 @@
-use std::fmt::Display;
 
 use proc_macro::TokenStream;
 use quote::{quote, ToTokens};
-use syn::{Data, DeriveInput, Ident, Type, Visibility};
+use syn::{Data, DeriveInput};
 
 //type FieldProps = (String, Type, Visibility);
 type FieldProps = (String, String, String);
